@@ -101,19 +101,21 @@ npm run check                   # 两个一起跑
 ## 安装
 
 ```bash
-# 从 GitHub 装（推荐）
+# Release 资产（推荐：版本固定、无需构建）
+dsh plugin --profile <profile> add https://github.com/CleverYyt/dsh-session-categories/releases/download/v0.2.0/dsh-session-categories-0.2.0.tgz
+
+# 跟随 main 分支最新代码
 dsh plugin --profile <profile> add github:CleverYyt/dsh-session-categories
 
 # 本机改代码：直接挂本地目录，改完刷新页面就生效
 dsh plugin --profile <profile> add link:$PWD
-
-# 之后若发到 npm
-dsh plugin --profile <profile> add dsh-session-categories@0.2.0
 ```
 
 装完重载插件（或刷新页面），侧边栏图标列会多出一个「分类」图标。
 
-> `dsh plugin` 只是把参数转发给 profile 目录下的 pnpm，所以 pnpm 支持的写法（`link:`、`github:`、git URL、npm 版本号）都能直接用。
+> `dsh plugin` 只是把参数转发给 profile 目录下的 pnpm，所以 pnpm 支持的写法（`link:`、`github:`、git URL、npm 包名、`https://…tgz`）都能直接用。
+
+> ⚠️ **npm 上的 `dsh-session-categories` 不是本仓库**。那个裸名已被别人占用（[ht719/dsh-session-categories](https://github.com/ht719/dsh-session-categories)，2026-08 发布 0.1.0），所以本插件没有、也不该占用这个裸名；若将来发 npm，会发在 scope 下（见「仓库与分发」）。
 
 ## 从 DSH 插件市场（Discover）安装
 
@@ -139,7 +141,8 @@ https://raw.githubusercontent.com/CleverYyt/dsh-session-categories/main/market/i
 
 - 源码：<https://github.com/CleverYyt/dsh-session-categories>
 - 没有构建步骤：`index.js` / `client.js` 就是最终产物，改完直接提交。
-- 未发 npm：`files` 已把运行时文件（`index.js` / `client.js` / `cordis.patch.yml` / `locale` / `icon.svg`）、两份文档与自检脚本列全，`private: false`、`engines` 也写好了，真要发 npm 直接 `npm publish`。
+- 未发 npm：`files` 已把运行时文件（`index.js` / `client.js` / `cordis.patch.yml` / `locale` / `icon.svg`）、两份文档与自检脚本列全，`private: false`、`engines` 也写好了。
+- **发 npm 必须带 scope**（如 `@cleveryt/dsh-session-categories`）：裸名 `dsh-session-categories` 已被他人占用。scoped 包默认私有，发布时要 `npm publish --access public`；`package.json` 里再加 `"publishConfig": { "access": "public" }`，并把 `dsh.bundle` / `dsh.client` 保持不变（DSH 只看这两个字段，不看包名）。
 
 ## 数据存在哪
 
