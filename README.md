@@ -115,6 +115,26 @@ dsh plugin --profile <profile> add dsh-session-categories@0.2.0
 
 > `dsh plugin` 只是把参数转发给 profile 目录下的 pnpm，所以 pnpm 支持的写法（`link:`、`github:`、git URL、npm 版本号）都能直接用。
 
+## 从 DSH 插件市场（Discover）安装
+
+DSH 目前**没有**统一的官方市场：插件市场是**用户自己添加的索引源**（一个 format 1 的 JSON），Web 端在「插件 → 发现」里读它。本仓库已经带了一份索引：
+
+```
+https://raw.githubusercontent.com/CleverYyt/dsh-session-categories/main/market/index.json
+```
+
+用它的步骤：
+
+1. 侧栏 **插件** → 找到「实验性插件」旁的 **更多** → 启用 **自定义插件市场**；插件页随后出现 **已安装 / 发现** 两个标签页。
+2. 在 **发现** 里添加索引源，粘贴上面那行 URL。
+3. 索引里会出现「会话分类」，点安装即可（安装参数由索引里的 git commit 固定，不经 npm）。
+
+维护约定：
+
+- 索引格式（format 1）见 DSH 的 `@deepseek-ai/dsh-plugin-market-index`；`market/index.json` 必须能被它的 `parseMarketIndex` 接受，否则「发现」会直接报索引无效。
+- `versions[].source` 用 `git` 源，`commit` 必须是**包含该版本代码的 40 位小写 SHA**。发新版本时同步改 `version`、`publishTimestamp`（Unix 秒）、`commit`。
+- 图标用内联的 `data:image/svg+xml;base64,…`（上限 32 KiB 解码后），不依赖外链托管。
+
 ## 仓库与分发
 
 - 源码：<https://github.com/CleverYyt/dsh-session-categories>
