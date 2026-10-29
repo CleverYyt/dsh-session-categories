@@ -1,0 +1,28 @@
+# 会话分类插件。
+#
+# 分类与「会话 → 分类」的归属放在 $DSH_HOME/storages/dsh-session-categories/state.json，
+# 不写进任何会话日志，所以升级、重启、切 profile 都只影响这一个文件。
+#
+# ⚠️ name 必须和 package.json 的包名完全一致：这里写成别的名字，bundle 插入时
+# 会去 node_modules 找那个模块，找不到就整条插件加载失败、侧边栏图标不出现。
+- insert:
+    - id: dsh-session-categories
+      name: dsh-session-categories
+      config:
+        # 初始分类。只在第一次运行（state.json 还不存在）时写入；
+        # 之后想改请直接在面板里改，别在这里加 —— 改了也不会覆盖已有数据。
+        seedCategories:
+          - 工作
+          - 排查
+          - 学习
+        # AI 自动分类用的模型。留空 = 跟随运行时默认模型。
+        provider: ''
+        model: ''
+        # 下面几项只是「第一次运行时的默认值」：面板 → 设置 里改过之后，
+        # 以 state.json 里的设置为准，改这里不会覆盖用户的选择。
+        #
+        # AI 建议的最低置信度，低于它的会话保持未分类。
+        # 提示词已要求模型「每条都给最接近的分类」，这里放低到 0.35，避免只剩个别高把握的。
+        minConfidence: 0.35
+        # 花费统计默认档位：day / week / month
+        costRange: day

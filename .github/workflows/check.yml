@@ -1,0 +1,28 @@
+name: check
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  self-check:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['20', '22', '24']
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      # 插件没有运行时依赖（peer 依赖由宿主提供），所以不需要 install
+      - name: Host 行为自检
+        run: node scripts/check-host.mjs
+
+      - name: Client 冒烟（apply + 11 个组件各渲染一次）
+        run: node scripts/smoke-client.mjs

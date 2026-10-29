@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="Session categories">
+  <defs>
+    <linearGradient id="dsc-g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5b8def"/>
+      <stop offset="100%" stop-color="#3f6fd8"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="240" height="240" rx="56" fill="url(#dsc-g)"/>
+  <rect x="52" y="60" width="152" height="40" rx="14" fill="#ffffff" opacity="0.95"/>
+  <rect x="52" y="112" width="104" height="32" rx="12" fill="#ffffff" opacity="0.8"/>
+  <rect x="52" y="156" width="132" height="32" rx="12" fill="#ffffff" opacity="0.62"/>
+  <circle cx="184" cy="128" r="10" fill="#ffffff" opacity="0.9"/>
+</svg>
